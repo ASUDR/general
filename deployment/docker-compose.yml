@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./dockerfiles/general
+    volumes:
+      - ../frontend:/opt/app
+    networks:
+      - project
+    env_file:
+      - ./env/common.env
+      - ./env/frontend.env
+
+networks:
+  project:
+    driver: bridge
+  nginx:
+    external:
+      name: nginx
