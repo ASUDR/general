@@ -12,8 +12,8 @@ CREATE TABLE objects.countries (
 
 CREATE TABLE university.faculties (
     id smallserial PRIMARY KEY,
-    short_name varchar(16) NOT NULL,
-    name varchar(64) NOT NULL
+    short_name varchar(16) NOT NULL UNIQUE,
+    name varchar(64) NOT NULL UNIQUE
 );
 
 CREATE TABLE university.groups (
