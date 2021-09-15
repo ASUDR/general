@@ -53,8 +53,6 @@ CREATE TABLE university.hostel_rooms (
     UNIQUE (number, floor_id)
 );
 
-DROP TABLE persons.lodgers;
-
 CREATE TABLE persons.lodgers (
     id serial PRIMARY KEY,
     password varchar(60) DEFAULT md5(random()::text) NOT NULL,
@@ -71,7 +69,7 @@ CREATE TABLE persons.lodgers (
     hostel_contract_number integer,
     hostel_contract_date date,
     citizenship_country_id smallint REFERENCES objects.countries(id)
-        ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE objects.admin_roles (
