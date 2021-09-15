@@ -9,6 +9,7 @@ services:
       - project
     ports:
       - 3021:5432
+    env_file: ./env/common.env
 
   frontend:
     build: ./dockerfiles/general
