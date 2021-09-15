@@ -1,6 +1,15 @@
 version: "3"
 
 services:
+  db:
+    image: postgres:13.4-alpine
+    volumes:
+      - ../db:/var/lib/postgresql/data
+    networks:
+      - project
+    ports:
+      - 3021:5432
+
   frontend:
     build: ./dockerfiles/general
     volumes:
