@@ -25,7 +25,7 @@ CREATE TABLE university.groups (
 
 CREATE TABLE university.hostels (
     id smallserial PRIMARY KEY,
-    name varchar(32) NOT NULL
+    name varchar(32) NOT NULL UNIQUE
 );
 
 CREATE TABLE university.hostels_to_universities (
