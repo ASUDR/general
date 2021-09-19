@@ -91,7 +91,7 @@ CREATE TABLE persons.admins (
     role_id smallint REFERENCES objects.admin_roles(id)
         ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
     faculty_id smallint REFERENCES university.faculties(id)
-        ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     password varchar(60) DEFAULT md5(random()::text) NOT NULL,
     first_name varchar(32) NOT NULL,
     last_name varchar(32) NOT NULL,
