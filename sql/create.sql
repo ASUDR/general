@@ -28,7 +28,7 @@ CREATE TABLE university.hostels (
     name varchar(32) NOT NULL UNIQUE
 );
 
-CREATE TABLE university.hostels_to_universities (
+CREATE TABLE university.faculty_hostels (
     id smallserial PRIMARY KEY,
     faculty_id smallint REFERENCES university.faculties(id)
         ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
