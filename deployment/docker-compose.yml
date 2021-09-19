@@ -4,12 +4,28 @@ services:
   db:
     image: postgres:13.4-alpine
     volumes:
-      - ../db:/var/lib/postgresql/data
+      - ../db:${DB_DATA_PATH}
     networks:
       - project
     ports:
-      - 3021:5432
-    env_file: ./env/common.env
+      - ${DB_PORT}:5432
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: ${DB_DATA_PATH}
+
+  backend:
+    build: ./dockerfiles/general
+    volumes:
+      - ../backend:/opt/app
+    networks:
+      - project
+    depends_on:
+      - db
+    env_file:
+      - ./env/common.env
+      - ./env/backend.env
 
   frontend:
     build: ./dockerfiles/general
