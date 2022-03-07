@@ -24,8 +24,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ./env/common.env
-      - ./env/backend.env
+      - ./.env
 
   frontend:
     build: ./dockerfiles/general
@@ -34,8 +33,7 @@ services:
     networks:
       - project
     env_file:
-      - ./env/common.env
-      - ./env/frontend.env
+      - ./.env
 
 volumes:
   db-data:
