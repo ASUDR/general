@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:13.4-alpine
     volumes:
-      - ../db:${DB_DATA_PATH}
+      - db-data:${DB_DATA_PATH}
     networks:
       - project
     ports:
@@ -36,6 +36,9 @@ services:
     env_file:
       - ./env/common.env
       - ./env/frontend.env
+
+volumes:
+  db-data:
 
 networks:
   project:
