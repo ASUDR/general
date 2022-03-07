@@ -4,6 +4,3 @@
 [submodule "backend"]
 	path = backend
 	url = git@github.com:ASUDR/backend.git
-[submodule "backend-nest"]
-	path = backend-nest
-	url = git@github.com:ASUDR/backend-nest.git
