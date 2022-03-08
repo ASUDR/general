@@ -8,7 +8,7 @@ services:
     networks:
       - project
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_OUT_PORT}:${DB_INTER_PORT}
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -21,8 +21,12 @@ services:
       - ../backend:/opt/app
     networks:
       - project
+    ports:
+      - 5021:3000
     depends_on:
       - db
+    working_dir: /opt/app
+    command: npm run start:dev
     env_file:
       - ./.env
 
