@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  repo: $(cut -d "/" -f 2 <<< $GITHUB_REPOSITORY)
+
+jobs:
+  ci:
+    name: Deploy to remote server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: true
+
+      - name: Setup ssh private key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+
+      - name: Copy to remote server
+        run: |
+          rsync -avzr --delete-after -e "ssh -o StrictHostKeyChecking=no" \
+          . khuzha@${{ secrets.DOMAIN }}:/opt/projects/${{ env.repo }}

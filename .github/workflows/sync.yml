@@ -1,0 +1,29 @@
+name: Sync
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Submodules Sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Submodules update
+        run: |
+          git pull --recurse-submodules
+          git submodule update --recursive --remote
+
+      - name: Commit update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "(ASS) Auto Submodules Sync" && git push || echo "no changes to commit"
